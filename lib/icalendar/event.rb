@@ -14,7 +14,7 @@ module Icalendar
     optional_single_property :ip_class
     optional_single_property :created, Icalendar::Values::DateTime
     optional_single_property :description
-    optional_single_property :geo, Icalendar::Values::Float
+    optional_single_property :geo, Icalendar::Values::Geo
     optional_single_property :last_modified, Icalendar::Values::DateTime
     optional_single_property :location
     optional_single_property :organizer, Icalendar::Values::CalAddress
@@ -45,7 +45,5 @@ module Icalendar
       self.dtstamp = Icalendar::Values::DateTime.new Time.now.utc, 'tzid' => 'UTC'
       self.uid = new_uid
     end
-
   end
-
 end

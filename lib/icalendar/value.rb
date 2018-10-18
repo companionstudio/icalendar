@@ -12,6 +12,12 @@ module Icalendar
       super value
     end
 
+    # @TODO: For some reason, mac calendars expect atendee props to use ';'
+    # Need to work out why
+    def key_value_separator(key)
+      ':'
+    end
+
     def ical_param(key, value)
       @ical_params[key] = value
     end
@@ -22,7 +28,7 @@ module Icalendar
 
     def to_ical(default_type)
       ical_param 'value', self.value_type if needs_value_type?(default_type)
-      "#{params_ical}:#{value_ical}"
+      "#{params_ical}#{key_value_separator(params_ical)}#{value_ical}"
     end
 
     def params_ical
@@ -76,6 +82,7 @@ require_relative 'values/duration'
 require_relative 'values/float'
 require_relative 'values/integer'
 require_relative 'values/period'
+require_relative 'values/period'
 require_relative 'values/recur'
 require_relative 'values/text'
 require_relative 'values/time'
@@ -83,4 +90,5 @@ require_relative 'values/uri'
 require_relative 'values/utc_offset'
 
 # further refine above classes
+require_relative 'values/geo'
 require_relative 'values/cal_address'
