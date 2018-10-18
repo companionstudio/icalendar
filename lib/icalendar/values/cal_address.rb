@@ -4,8 +4,7 @@ module Icalendar
     class CalAddress < Value
 
       def initialize(value, params = {})
-        parsed = URI.parse(value) rescue value
-        super parsed, params
+        super value, params
       end
 
       def value_ical

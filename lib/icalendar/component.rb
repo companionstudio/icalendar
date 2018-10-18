@@ -38,7 +38,7 @@ module Icalendar
     private
 
     def ical_properties
-      (self.class.properties + custom_properties.keys).map do |prop|
+      output = (self.class.properties + custom_properties.keys).map do |prop|
         value = property prop
         unless value.nil?
           if value.is_a? ::Array
@@ -50,6 +50,10 @@ module Icalendar
           end
         end
       end.compact.join "\r\n"
+
+      # @FIXME: This is a hack to make this work - need to trace back and work
+      # out where the separator is coming from
+      output.gsub('ATTENDEE:', 'ATTENDEE;')
     end
 
     def ical_prop_name(prop_name)
